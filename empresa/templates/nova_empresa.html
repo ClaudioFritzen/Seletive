@@ -17,6 +17,7 @@
             <!-- mensagens do Alerts-->
             {% if messages %}
                 {% for message in messages %}
+                    <br>
                     <section class="alert {{message.tags}}">
                         {{message}}
                     </section>
