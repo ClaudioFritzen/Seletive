@@ -5,6 +5,9 @@ from .models import Tecnologias, Empresa
 
 from django.shortcuts import redirect
 
+from django.contrib import messages
+from django.contrib.messages import constants
+
 # Create your views here.
 def nova_empresa(request):
     if request.method == "GET":
@@ -25,16 +28,16 @@ def nova_empresa(request):
         logo = request.FILES.get('logo')
 
         if (len(nome.strip()) == 0 or len(email.strip()) == 0 or len(cidade.strip()) == 0 or len(endereco.strip()) == 0 or len(nicho.strip()) == 0 or len(caracteristicas.strip()) == 0 or (not logo)): 
-            #messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
+            messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
             return redirect('/home/nova_empresa')
 
         # tamanho da img que pode ser recebida
         if logo.size > 100_000_000:
-            #messages.add_message(request, constants.ERROR, 'A logo da empresa deve ter menos de 10MB')
+            messages.add_message(request, constants.ERROR, 'A logo da empresa deve ter menos de 10MB')
             return redirect('/home/nova_empresa')
 
         if nicho not in [i[0] for i in Empresa.choices_nicho_mercado]:
-            #messages.add_message(request, constants.ERROR, 'Nicho de mercado inválido')
+            messages.add_message(request, constants.ERROR, 'Nicho de mercado inválido')
             return redirect('/home/nova_empresa')
 
         return HttpResponse(f"Hello world!!!{tecnologias} ")
