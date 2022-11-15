@@ -69,4 +69,18 @@ def excluir_empresa(request, id):
     messages.add_message(request, constants.SUCCESS, 'Empresa excluída com sucesso')
     return redirect('/home/empresas')
 
-        
+
+# buscando todas as tecnologias no db
+def empresas(request):
+    technologias_filtrar = request.GET.get('tecnologias')
+    nome_filtrar = request.GET.get('nome')
+    empresas = Empresa.objects.all()
+
+    if technologias_filtrar:
+        empresas = empresas.filter(tecnologias = technologias_filtrar)
+    
+    if nome_filtrar:
+        empresas = empresas.filter(nome__icontains = nome_filtrar)
+
+    tecnologias = Tecnologias.objects.all()
+    return render(request, 'empresa.html', {'empresas': empresas, 'tecnologias': tecnologias})
