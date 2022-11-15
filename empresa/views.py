@@ -55,4 +55,11 @@ def nova_empresa(request):
         #return redirect('/home/empresas')
         return redirect('/home/nova_empresa')
 
+#listando as empresas
+
+def empresas(request):
+    empresas = Empresa.objects.all()
+    tecnologias = Tecnologias.objects.all()
+    return render(request, 'empresa.html', {'empresas': empresas, 'tecnologias': tecnologias})
+
         
