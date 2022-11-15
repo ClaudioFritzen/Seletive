@@ -72,7 +72,7 @@ TEMPLATES = [
             ],
             # cadastrando os fltros
             'libraries': {
-                'filtro': 'empresa.templatestags.filtro'
+                'filtro': 'empresa.templatetags.filtro'
             }
                 
             

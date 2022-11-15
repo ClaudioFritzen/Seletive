@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filtro %}
 
 {% block 'head' %}
     <link href="{% static 'empresa/css/empresas.css' %}" rel="stylesheet">
@@ -53,8 +54,8 @@
                     </tr>
 
                         {% for empresa in empresas %}
-                            <tr class="tabela-linha" >
-                                <td> {{empresa.nome}} | {{forloop.counter|is_par}} </td>
+                            <tr {% if not forloop.counter|is_par %} class="tabela-linha" {% endif %}>
+                                <td> {{empresa.nome}} </td>
                                 <td> {{empresa.endereco}} </td>
                                 <td>
                                     
