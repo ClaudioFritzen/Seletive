@@ -70,6 +70,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            # cadastrando os fltros
+            'libraries': {
+                'filtro': 'empresa.templatestags.filtro'
+            }
+                
+            
         },
     },
 ]
