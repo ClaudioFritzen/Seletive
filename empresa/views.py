@@ -87,4 +87,6 @@ def empresas(request):
 
 def empresa(request, id):
     empresa_unica = get_object_or_404(Empresa, id=id)
-    return render(request, 'empresa_unica.html', {'empresa': empresa_unica})
+    empresas = Empresa.objects.all()
+    tecnologias = Tecnologias.objects.all()
+    return render(request, 'empresa_unica.html', {'empresa': empresa_unica, 'tecnologias': tecnologias, 'empresas': empresas})
