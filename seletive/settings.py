@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 
     # meus apps
     'empresa',
+    'vagas',
+    
 ]
 
 MIDDLEWARE = [
