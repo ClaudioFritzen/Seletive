@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 # Create your models here.
 
 class Tecnologias(models.Model):
@@ -58,16 +60,9 @@ class Vagas(models.Model):
     tecnologias_estudar = models.ManyToManyField(Tecnologias, related_name='estudar')
 
     def progresso(self):
-        if self.status == 'I':
-            return 20
-        elif self.status == 'C':
-            return 40
-        elif self.status == 'E':
-            return 60
-        elif self.status == 'D':
-            return 80
-        elif self.status == 'F':
-            return 100
+        progresso = [( (i+1)*20, j[0]) for i, j in enumerate(self.choices_status)]
+        barra_de_progresso = list(filter(lambda x: x[1] == self.status, progresso))[0][0]
+        return barra_de_progresso
 
     def __str__(self):
         return self.titulo
