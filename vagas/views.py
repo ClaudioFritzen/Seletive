@@ -6,6 +6,15 @@ from django.contrib.messages import constants
 
 from empresa.models import Vagas
 from .models import Tarefa
+
+# imports para envio de email
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
+
+#IMPORTANDO O EMAIL DEFINIDO NOS SETTINGS
+from django.conf import settings
+
 # Create your views here.
 def nova_vaga(request):
     if request.method == "POST":
@@ -80,3 +89,24 @@ def realizar_tarefa(request, id):
     print(tarefa)
 
     return redirect(f'/vagas/vaga/{tarefa.vaga.id}')
+
+
+# enviar email
+def envia_email(request, id_vaga):
+    vaga = Vagas.objects.get(id=id_vaga)
+    assunto = request.POST.get('assunto')
+    corpo = request.POST.get('corpo')
+
+    html_content = render_to_string('emails/template_email.html', {'corpo': corpo })
+    text_content = strip_tags(html_content)
+    email = EmailMultiAlternatives(assunto, text_content, settings.EMAIL_HOST_USER, [vaga.email,])
+
+    email.attach_alternative(html_content, "text/html")
+
+    if email.send():
+        messages.add_message(request, constants.SUCCESS, 'EMAIL enviado com sucesso')
+        return redirect(f'/vagas/vaga/{id_vaga}')
+
+    else:
+        messages.add_message(request, constants.SUCCESS, 'Não conseguimos enviar o seu email.' )
+        return redirect(f'/vagas/vaga/{id_vaga}')
