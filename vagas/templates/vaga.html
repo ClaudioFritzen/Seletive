@@ -67,7 +67,7 @@
                                     {{tarefa.data}}
                                 </label>
                                 <label class="prioridade-bloco">
-                                    <a href="#" class="btn btn-success">{{tarefa.realizada}}</a>
+                                    <a href="{% url 'realizar_tarefa' tarefa.id %}" class="btn btn-success">Finalizado</a>
                                 </label>
 
                             </div>
