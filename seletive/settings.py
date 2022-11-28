@@ -25,7 +25,6 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
-CSRF_TRUSTED_ORIGINS = ['https://seletive-production.up.railway.app/']
 
 
 
@@ -161,6 +160,8 @@ MESSAGE_TAGS = {
     constants.WARNING: 'alert-warning',
 }
 
+
+CSRF_TRUSTED_ORIGINS = ['https://seletive-production.up.railway.app/']
 # Email
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
