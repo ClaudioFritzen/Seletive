@@ -161,7 +161,7 @@ MESSAGE_TAGS = {
 }
 
 
-CSRF_TRUSTED_ORIGINS = ['https://seletive-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://seletive-production.up.railway.app']
 # Email
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
