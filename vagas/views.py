@@ -28,6 +28,9 @@ def nova_vaga(request):
         status = request.POST.get('status')
 
         # TODO: validations
+        if (len(titulo.strip()) == 0 or len(email.strip()) == 0 or len(tecnologias_domina()) == 0 or len(tecnologias_nao_domina.strip()) == 0 or len(experiencia.strip()) == 0 or len(data_final.strip()) == 0 ): 
+            messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
+            return redirect('/home/empresas')
 
         vaga = Vagas(
                     titulo=titulo,
