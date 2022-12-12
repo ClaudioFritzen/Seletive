@@ -30,7 +30,7 @@ def nova_vaga(request):
         # TODO: validations
         if (len(titulo.strip()) == 0 or len(email.strip()) == 0 or len(tecnologias_domina()) == 0 or len(tecnologias_nao_domina.strip()) == 0 or len(experiencia.strip()) == 0 or len(data_final.strip()) == 0 ): 
             messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
-            return redirect('/home/empresas')
+            return redirect(f'/home/empresa/{empresa}')
 
         vaga = Vagas(
                     titulo=titulo,
@@ -66,6 +66,10 @@ def nova_tarefa(request, id_vaga):
         data = request.POST.get('data')
 
         # realizar validações
+        if (len(titulo.strip()) == 0 or len(prioridade.strip()) == 0 or len(data()) == 0 ): 
+            messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
+            return redirect(f'/vagas/vaga/{id_vaga}')
+
         tarefas = Tarefa(
             vaga_id = id_vaga, 
             titulo = titulo,
