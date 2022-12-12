@@ -68,15 +68,7 @@
 
         <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-orange">Nova vaga</a>
 
-        <div class="row">
-            {% if messages %}
-                {% for message in messages %}
-                    <br>
-                    <section class="alert {{message.tags}}">
-                        {{message}}
-                    </section>
-                {% endfor %}
-            {% endif %} 
+        <div class="row"> 
             {% for vaga in vagas %}
                 <div class="col-md">
 

@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.contrib import messages
 from django.contrib.messages import constants
 
-from empresa.models import Vagas
+from empresa.models import Vagas, Empresa
 from .models import Tarefa, Emails
 
 # imports para envio de email
@@ -27,10 +27,21 @@ def nova_vaga(request):
         empresa = request.POST.get('empresa')
         status = request.POST.get('status')
 
+        print(titulo, email, tecnologias_domina, tecnologias_nao_domina, experiencia)
+        
         # TODO: validations
-        if (len(titulo.strip()) == 0 or len(email.strip()) == 0 or len(tecnologias_domina()) == 0 or len(tecnologias_nao_domina.strip()) == 0 or len(experiencia.strip()) == 0 or len(data_final.strip()) == 0 ): 
+        
+        """ if (len(titulo.strip()) == 0 or len(email.strip()) == 0 or len(tecnologias_domina([])) == 0 or len(tecnologias_nao_domina.strip([])) == 0 or len(experiencia.strip()) == 0): 
             messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
             return redirect(f'/home/empresa/{empresa}')
+        if (len(data_final) == ''):
+            messages.add_message(request, constants.ERROR, 'Defina uma data') 
+         """
+        """ Validação do status
+        if experiencia not in [i[0] for i in Empresa.choices_experiencia]:
+            messages.add_message(request, constants.ERROR, 'Experiencia não existe no nosso banco')
+            return redirect(f'/home/empresa/{empresa}')
+        """
 
         vaga = Vagas(
                     titulo=titulo,

@@ -52,7 +52,6 @@ def nova_empresa(request):
         empresa.tecnologias.add(*tecnologias)
         empresa.save()
         messages.add_message(request, constants.SUCCESS, 'Empresa cadastrada com sucesso')
-        #return redirect('/home/empresas')
         return redirect('/home/empresas')
         
 
