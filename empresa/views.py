@@ -1,12 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
-from .models import Tecnologias, Empresa, Vagas
-
-from django.shortcuts import redirect, get_object_or_404
-
 from django.contrib import messages
 from django.contrib.messages import constants
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .models import Empresa, Tecnologias, Vagas
+
 
 # Create your views here.
 def nova_empresa(request):

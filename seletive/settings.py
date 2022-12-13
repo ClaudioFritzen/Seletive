@@ -1,12 +1,11 @@
 import os
 from pathlib import Path
 
-# aplicativo de mensagem do django
-from django.contrib.messages import constants
-
+import dj_database_url
 # deploy
 from decouple import Csv, config
-import dj_database_url
+# aplicativo de mensagem do django
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

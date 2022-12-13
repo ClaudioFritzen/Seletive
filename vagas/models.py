@@ -1,6 +1,8 @@
 from django.db import models
-from empresa.models import Vagas
 from django.utils.safestring import mark_safe
+
+from empresa.models import Vagas
+
 
 # Create your models here.
 class Tarefa(models.Model):

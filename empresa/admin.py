@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Tecnologias, Empresa, Vagas
+from .models import Empresa, Tecnologias, Vagas
 
 # Register your models here.
 admin.site.register(Tecnologias)

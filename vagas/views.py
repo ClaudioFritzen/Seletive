@@ -1,19 +1,18 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, Http404
-
+# IMPORTANDO O EMAIL DEFINIDO NOS SETTINGS
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.messages import constants
-
-from empresa.models import Vagas
-from .models import Tarefa, Emails
-
+from django.core.mail import EmailMultiAlternatives
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 # imports para envio de email
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.core.mail import EmailMultiAlternatives
 
-# IMPORTANDO O EMAIL DEFINIDO NOS SETTINGS
-from django.conf import settings
+from empresa.models import Vagas
+
+from .models import Emails, Tarefa
+
 
 # Create your views here.
 def nova_vaga(request):
