@@ -13,7 +13,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='empresa',
             name='nicho_mercado',
-            field=models.CharField(choices=[('M', 'Marketing'), ('N', 'Nutrição'), ('D', 'Design')], default=1, max_length=3),
+            field=models.CharField(
+                choices=[
+                    ('M', 'Marketing'),
+                    ('N', 'Nutrição'),
+                    ('D', 'Design'),
+                ],
+                default=1,
+                max_length=3,
+            ),
             preserve_default=False,
         ),
     ]

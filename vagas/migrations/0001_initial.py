@@ -16,12 +16,36 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tarefa',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('titulo', models.CharField(max_length=30)),
-                ('prioridade', models.CharField(choices=[('B', 'Baixa'), ('A', 'Alta'), ('U', 'Urgente')], max_length=1)),
+                (
+                    'prioridade',
+                    models.CharField(
+                        choices=[
+                            ('B', 'Baixa'),
+                            ('A', 'Alta'),
+                            ('U', 'Urgente'),
+                        ],
+                        max_length=1,
+                    ),
+                ),
                 ('data', models.DateField()),
                 ('realizada', models.BooleanField(default=False)),
-                ('vaga', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='empresa.vagas')),
+                (
+                    'vaga',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='empresa.vagas',
+                    ),
+                ),
             ],
         ),
     ]

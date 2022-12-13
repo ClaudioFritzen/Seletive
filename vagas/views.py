@@ -12,12 +12,12 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 
-#IMPORTANDO O EMAIL DEFINIDO NOS SETTINGS
+# IMPORTANDO O EMAIL DEFINIDO NOS SETTINGS
 from django.conf import settings
 
 # Create your views here.
 def nova_vaga(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         titulo = request.POST.get('titulo')
         email = request.POST.get('email')
         tecnologias_domina = request.POST.getlist('tecnologias_domina')
@@ -33,16 +33,24 @@ def nova_vaga(request):
         print(tecnologias_nao_domina)
         print(experiencia)
         print(type(data_final))
-        
+
         # TODO: validations
         # or len(tecnologias_domina([])) == 0 or len(tecnologias_nao_domina.strip([])) == 0
-        if (len(titulo.strip()) == 0 or len(email.strip()) == 0 or len(experiencia.strip()) == 0): 
-            messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
+        if (
+            len(titulo.strip()) == 0
+            or len(email.strip()) == 0
+            or len(experiencia.strip()) == 0
+        ):
+            messages.add_message(
+                request, constants.ERROR, 'Preencha todos os campos'
+            )
             return redirect(f'/home/empresa/{empresa}')
-        
+
         # validação do data
         if data_final == '':
-            messages.add_message(request, constants.ERROR, 'Data precisa ser preenchida')
+            messages.add_message(
+                request, constants.ERROR, 'Data precisa ser preenchida'
+            )
             return redirect(f'/home/empresa/{empresa}')
         """ Validação do status
         if experiencia not in [i[0] for i in Empresa.choices_experiencia]:
@@ -51,14 +59,13 @@ def nova_vaga(request):
         """
 
         vaga = Vagas(
-                    titulo=titulo,
-                    email=email,
-                    nivel_experiencia=experiencia,
-                    data_final=data_final,
-                    empresa_id=empresa,
-                    status=status,
+            titulo=titulo,
+            email=email,
+            nivel_experiencia=experiencia,
+            data_final=data_final,
+            empresa_id=empresa,
+            status=status,
         )
-
 
         vaga.save()
 
@@ -66,16 +73,24 @@ def nova_vaga(request):
         vaga.tecnologias_dominadas.add(*tecnologias_domina)
 
         vaga.save()
-        messages.add_message(request, constants.SUCCESS, 'Vaga criada com sucesso.')
+        messages.add_message(
+            request, constants.SUCCESS, 'Vaga criada com sucesso.'
+        )
         return redirect(f'/home/empresa/{empresa}')
-    elif request.method == "GET":
+    elif request.method == 'GET':
         raise Http404()
+
 
 def vaga(request, id):
     vaga = get_object_or_404(Vagas, id=id)
-    tarefas = Tarefa.objects.filter(vaga=vaga).filter(realizada = False)
+    tarefas = Tarefa.objects.filter(vaga=vaga).filter(realizada=False)
     emails = Emails.objects.filter(vaga=vaga)
-    return render(request, 'vaga.html',  {'vaga': vaga, 'tarefas': tarefas, 'emails': emails})
+    return render(
+        request,
+        'vaga.html',
+        {'vaga': vaga, 'tarefas': tarefas, 'emails': emails},
+    )
+
 
 def nova_tarefa(request, id_vaga):
     try:
@@ -84,34 +99,46 @@ def nova_tarefa(request, id_vaga):
         data = request.POST.get('data')
 
         # realizar validações
-        if (len(titulo.strip()) == 0 or len(prioridade.strip()) == 0 or len(data()) == 0 ): 
-            messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
+        if (
+            len(titulo.strip()) == 0
+            or len(prioridade.strip()) == 0
+            or len(data()) == 0
+        ):
+            messages.add_message(
+                request, constants.ERROR, 'Preencha todos os campos'
+            )
             return redirect(f'/vagas/vaga/{id_vaga}')
 
         tarefas = Tarefa(
-            vaga_id = id_vaga, 
-            titulo = titulo,
-            prioridade = prioridade,
-            data = data
+            vaga_id=id_vaga, titulo=titulo, prioridade=prioridade, data=data
         )
         tarefas.save()
-        messages.add_message(request, constants.SUCCESS, 'Tarefa salva com sucesso.')
+        messages.add_message(
+            request, constants.SUCCESS, 'Tarefa salva com sucesso.'
+        )
         return redirect(f'/vagas/vaga/{id_vaga}')
     except:
-        messages.add_message(request, constants.ERROR, 'Erro interno do sistema.')
+        messages.add_message(
+            request, constants.ERROR, 'Erro interno do sistema.'
+        )
         return redirect(f'/vagas/vaga/{id_vaga}')
+
 
 def realizar_tarefa(request, id):
     tarefa_list = Tarefa.objects.filter(id=id).filter(realizada=False)
 
     if not tarefa_list.exists():
-        messages.add_message(request, constants.ERROR, 'Realize apenas uma tarefa valida!')
+        messages.add_message(
+            request, constants.ERROR, 'Realize apenas uma tarefa valida!'
+        )
         return redirect('/home/empresas')
 
     tarefa = tarefa_list.first()
     tarefa.realizada = True
     tarefa.save()
-    messages.add_message(request, constants.SUCCESS, 'Tarefa adicionada como feita')
+    messages.add_message(
+        request, constants.SUCCESS, 'Tarefa adicionada como feita'
+    )
     print(tarefa)
 
     return redirect(f'/vagas/vaga/{tarefa.vaga.id}')
@@ -123,30 +150,33 @@ def envia_email(request, id_vaga):
     assunto = request.POST.get('assunto')
     corpo = request.POST.get('corpo')
 
-    html_content = render_to_string('emails/template_email.html', {'corpo': corpo })
+    html_content = render_to_string(
+        'emails/template_email.html', {'corpo': corpo}
+    )
     text_content = strip_tags(html_content)
-    email = EmailMultiAlternatives(assunto, text_content, settings.EMAIL_HOST_USER, [vaga.email,])
+    email = EmailMultiAlternatives(
+        assunto,
+        text_content,
+        settings.EMAIL_HOST_USER,
+        [
+            vaga.email,
+        ],
+    )
 
-    email.attach_alternative(html_content, "text/html")
+    email.attach_alternative(html_content, 'text/html')
 
     if email.send():
-        mail = Emails(
-            vaga=vaga,
-            assunto=assunto,
-            corpo=corpo,
-            enviado=True
-        )
+        mail = Emails(vaga=vaga, assunto=assunto, corpo=corpo, enviado=True)
         mail.save()
-        messages.add_message(request, constants.SUCCESS, 'EMAIL enviado com sucesso')
+        messages.add_message(
+            request, constants.SUCCESS, 'EMAIL enviado com sucesso'
+        )
         return redirect(f'/vagas/vaga/{id_vaga}')
 
     else:
-        mail = Emails(
-            vaga=vaga,
-            assunto=assunto,
-            corpo=corpo,
-            enviado=False
-        )
+        mail = Emails(vaga=vaga, assunto=assunto, corpo=corpo, enviado=False)
         mail.save()
-        messages.add_message(request, constants.SUCCESS, 'Não conseguimos enviar o seu email.' )
+        messages.add_message(
+            request, constants.ERROR, 'Não conseguimos enviar o seu email.'
+        )
         return redirect(f'/vagas/vaga/{id_vaga}')

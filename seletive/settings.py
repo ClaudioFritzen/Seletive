@@ -1,4 +1,3 @@
-
 import os
 from pathlib import Path
 
@@ -26,8 +25,6 @@ DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,11 +34,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # meus apps
     'empresa',
     'vagas',
-    
 ]
 
 MIDDLEWARE = [
@@ -52,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #deploy
+    # deploy
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -71,11 +66,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             # cadastrando os fltros
-            'libraries': {
-                'filtro': 'empresa.templatetags.filtro'
-            }
-                
-            
+            'libraries': {'filtro': 'empresa.templatetags.filtro'},
         },
     },
 ]
@@ -86,11 +77,11 @@ WSGI_APPLICATION = 'seletive.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASE_URL = config("DATABASE_URL")
+DATABASE_URL = config('DATABASE_URL')
 
 DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
-} 
+    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
 
 
 """ 
@@ -139,8 +130,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-#STATIC_ROOT = os.path.join('static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join('static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -165,4 +156,4 @@ CSRF_TRUSTED_ORIGINS = ['https://seletive-production.up.railway.app']
 # Email
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST_USER = "seu_email@email.com.br"
+EMAIL_HOST_USER = 'seu_email@email.com.br'
