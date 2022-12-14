@@ -77,13 +77,17 @@
                             <a href=" {% url 'vaga' vaga.id %}">
                                 {{vaga.titulo}}
                             </a>
-                            <a href=" {% url 'excluir_vaga' vaga.id %}">
-                                Excluir Vaga
-                            </a> 
-                            
-                
-
+                            <div class="header-btn">   
+                                <a href=" {% url 'excluir_vaga' vaga.id %}">
+                                    Excluir Vaga
+                                </a> 
+                                
+                                {% comment %} <a href=" {% url 'excluir_vaga' vaga.id %}">
+                                    Excluir Vaga
+                                </a> {% endcomment %} 
+                            </div>   
                         </div>
+                        
 
                         <div class="body-vagas">
                             <div class="row">

@@ -27,9 +27,16 @@ label{
 }
 
 .header-vagas{
+    display: flex;
+    justify-content: space-between;
     background-color: #7D2948;
     padding: 15px;
-    color: white
+    color: white;
+}
+/*  Mexer aqui depois.*/
+.header-btn{
+    display: flex;
+    justify-content: space-around;
 }
 
 .body-vagas{
