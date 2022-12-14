@@ -12,4 +12,9 @@ urlpatterns = [
         name='realizar_tarefa',
     ),
     path('envia_email/<int:id_vaga>', views.envia_email, name='envia_email'),
+    path(
+        'excluir_vaga/<int:id_vaga>',
+        views.excluir_vaga,
+        name='excluir_vaga',
+    ),
 ]

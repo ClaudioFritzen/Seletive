@@ -2,8 +2,10 @@ import os
 from pathlib import Path
 
 import dj_database_url
+
 # deploy
 from decouple import Csv, config
+
 # aplicativo de mensagem do django
 from django.contrib.messages import constants
 

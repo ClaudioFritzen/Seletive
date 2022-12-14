@@ -5,6 +5,7 @@ from django.contrib.messages import constants
 from django.core.mail import EmailMultiAlternatives
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+
 # imports para envio de email
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -179,3 +180,12 @@ def envia_email(request, id_vaga):
             request, constants.ERROR, 'Não conseguimos enviar o seu email.'
         )
         return redirect(f'/vagas/vaga/{id_vaga}')
+
+
+def excluir_vaga(request, id_vaga):
+    vaga = Vagas.objects.get(id=id_vaga)
+    vaga.delete()
+    messages.add_message(
+        request, constants.SUCCESS, 'Vaga excluída com sucesso'
+    )
+    return redirect('/home/empresas')

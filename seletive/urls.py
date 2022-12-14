@@ -1,4 +1,5 @@
 from django.conf import settings
+
 # para pegar as img que o usuario coloca no banco
 from django.conf.urls.static import static
 from django.contrib import admin
