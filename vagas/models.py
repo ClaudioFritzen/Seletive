@@ -32,7 +32,7 @@ class Tarefa(models.Model):
 
 
 class Emails(models.Model):
-    vaga = models.ForeignKey(Vagas, on_delete=models.DO_NOTHING)
+    vaga = models.ForeignKey(Vagas, on_delete=models.CASCADE)
     assunto = models.CharField(max_length=100)
     corpo = models.TextField()
     enviado = models.BooleanField()
